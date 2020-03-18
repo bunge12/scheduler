@@ -17,6 +17,7 @@ import Show from "components/Appointment/Show";
 import Confirm from "components/Appointment/Confirm";
 import Status from "components/Appointment/Status";
 import Error from "components/Appointment/Error";
+import Form from "components/Appointment/Form";
 
 storiesOf("Button", module)
   .addParameters({
@@ -141,7 +142,7 @@ storiesOf("Appointment", module)
   .add("Appointment", () => <Appointment />)
   .add("Appointment with Time", () => <Appointment time="12pm" />)
   .add("Header", () => <Header time="12pm" />)
-  .add("Empty", () => <Empty onAdd={action("FunctionToAdd")} />)
+  .add("Empty", () => <Empty onAdd={action("onAdd")} />)
   .add("Show", () =>
     <Show
       student="Nicola Tesla"
@@ -155,9 +156,24 @@ storiesOf("Appointment", module)
       onConfirm={action("onConfirm")}
       onCancel={action("onCancel")}
     />)
-  .add("Status", () => <Status message="Deleting Appointment" />)
+  .add("Status/Saving", () => <Status message="Saving Appointment" />)
+  .add("Status/Deleting", () => <Status message="Deleting Appointment" />)
   .add("Error", () =>
     <Error
       message="There was an error connecting to the server"
       onClose={action("onClose")}
+    />)
+  .add("Form-Edit", () =>
+    <Form
+      name="Student Name"
+      interviewers={interviewers}
+      interviewer={3}
+      onSave={action("onSave")}
+      onCancel={action("onCancel")}
+    />)
+  .add("Form-Create", () =>
+    <Form
+      interviewers={interviewers}
+      onSave={action("onSave")}
+      onCancel={action("onCancel")}
     />)
