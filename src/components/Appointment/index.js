@@ -7,7 +7,7 @@ import "components/Appointment/style.scss";
 
 export default function Appointment(props) {
   return (
-    <article className="appointment" id={props.id}>
+    <article className="appointment" id={props.id} key={props.id}>
       <Header time={props.time} />
       {props.interview ?
         <Show
