@@ -6,27 +6,20 @@ import InterviewerList from "../InterviewList"
 
 export default function Form(props) {
 
-  const [interviewer, setInterviewer] = useState(props.interviwer || null);
-  const [name, setName] = useState("");
-
-  const handleSubmission = (event) => {
-    event.preventDefault();
-    props.setName(name);
-  };
+  const [interviewer, setInterviewer] = useState(props.interviewer || null);
+  const [name, setName] = useState(props.name || "");
 
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
-        <form autoComplete="off" onSubmit={handleSubmission}>
+        <form autoComplete="off"  >
           <input
             className="appointment__create-input text--semi-bold"
             name="name"
             type="text"
             placeholder="Enter Student Name"
-            value={props.name}
-          /*
-            This must be a controlled component
-          */
+            value={name}
+            onChange={event => setName(event.target.value)}
           />
         </form>
         <InterviewerList interviewers={props.interviewers} value={interviewer} onChange={setInterviewer} />
