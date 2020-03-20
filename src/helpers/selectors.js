@@ -13,6 +13,21 @@ export default function getAppointmentsForDay(state, day) {
   return result;
 }
 
+export const getInterviewersForDay = (state, day) => {
+  const result = [];
+  const fnState = { ...state }
+  const found = { ...fnState.days.find(element => element.name === day) }
+
+  if (typeof found.interviewers === 'undefined') {
+    return [];
+  } else {
+    found.interviewers.forEach(person => {
+      if (fnState.interviewers[person]) { result.push(fnState.interviewers[person]) }
+    })
+  }
+  return result;
+}
+
 export const getInterview = (state, interview) => {
 
 
