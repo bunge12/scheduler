@@ -9,9 +9,9 @@ import useVisualMode from "../../hooks/useVisualMode";
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
-const interviewers = [];
-export default function Appointment(props) {
 
+export default function Appointment(props) {
+  const interviewers = props.interviewers
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
