@@ -9,7 +9,9 @@ import "components/Application.scss";
 
 export default function Application(props) {
 
+
   function bookInterview(id, interview) {
+
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -18,12 +20,9 @@ export default function Application(props) {
       ...state.appointments,
       [id]: appointment
     };
-    setState({ ...state, appointments })
-    axios.put(`/api/appointments/${id}`, appointment)
-      .then(res => {
 
-        console.log(res)
-      })
+    axios.put(`/api/appointments/${id}`, appointment)
+      .then(res => { setState({ ...state, appointments }); })
       .catch(e => console.log(e))
   }
 

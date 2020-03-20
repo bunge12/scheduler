@@ -3,12 +3,14 @@ import Header from "./Header"
 import Show from "./Show"
 import Empty from "./Empty"
 import Form from "./Form"
+import Status from "./Status"
 
 import "components/Appointment/style.scss";
 import useVisualMode from "../../hooks/useVisualMode";
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
+const SAVING = "SAVING";
 
 export default function Appointment(props) {
   const interviewers = props.interviewers
@@ -17,17 +19,19 @@ export default function Appointment(props) {
   );
 
   function save(name, interviewer) {
+    transition(SAVING)
     const interview = {
       student: name,
       interviewer
     };
     props.bookInterview(props.id, interview)
-    transition(SHOW)
+
   }
 
   return (
     <article className="appointment" id={props.id} key={props.id}>
       <Header time={props.time} />
+      {mode === SAVING && <Status message="Saving..." />}
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && (
         <Show
