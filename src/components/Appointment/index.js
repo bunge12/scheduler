@@ -36,7 +36,7 @@ export default function Appointment(props) {
 
     props.bookInterview(props.id, interview)
       .then(() => { transition(SHOW) })
-      .catch(() => { transition(ERROR_SAVE) })
+      .catch(() => { transition(ERROR_SAVE, true) })
   }
 
   const edit = () => {
@@ -46,10 +46,10 @@ export default function Appointment(props) {
     transition(CONFIRM)
   }
   const confirm = () => {
-    transition(DELETING)
+    transition(DELETING, true)
     props.cancelInterview(props.id)
       .then(() => { transition(EMPTY) })
-      .catch(() => { transition(ERROR_DELETE) })
+      .catch(() => { transition(ERROR_DELETE, true) })
   }
 
   return (
@@ -59,11 +59,11 @@ export default function Appointment(props) {
       {mode === DELETING && <Status message="Deleting..." />}
       {mode === ERROR_DELETE && <Error
         message="Error deleting..."
-        onClose={() => back()}
+        onClose={back}
       />}
       {mode === ERROR_SAVE && <Error
         message="Error SAVING..."
-        onClose={() => back()}
+        onClose={back}
       />}
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === CONFIRM && (
