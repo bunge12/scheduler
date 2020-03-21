@@ -34,7 +34,22 @@ export default function useApplicationData() {
     return axios.put(`/api/appointments/${id}`, appointment)
       .then(res => {
 
-        setState({ ...state, appointments });
+        state.days.forEach(item => {
+          const arr = item.appointments;
+          const appt = state.appointments[id].id;
+          const found = arr.find(element => element === appt)
+          if (typeof found !== 'undefined') {
+            const x = (item.id) - 1
+            const newSpots = state.days[x].spots - 1
+            const day = {
+              ...state.days[x],
+              spots: newSpots
+            };
+            const days = [...state.days];
+            days[x] = day;
+            setState(prev => ({ ...state, appointments, days }));
+          }
+        })
       })
 
   }
@@ -48,11 +63,26 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment
     };
-    console.log(state.days[0].spots + 1)
+
     return axios.delete(`/api/appointments/${id}`)
       .then(res => {
 
-        setState({ ...state, appointments });
+        state.days.forEach(item => {
+          const arr = item.appointments;
+          const appt = state.appointments[id].id;
+          const found = arr.find(element => element === appt)
+          if (typeof found !== 'undefined') {
+            const x = (item.id) - 1
+            const newSpots = state.days[x].spots + 1
+            const day = {
+              ...state.days[x],
+              spots: newSpots
+            };
+            const days = [...state.days];
+            days[x] = day;
+            setState(prev => ({ ...state, appointments, days }));
+          }
+        })
       })
   }
 
