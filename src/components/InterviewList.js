@@ -1,10 +1,14 @@
 import React from "react";
-
+import PropTypes from "prop-types";
 import "components/InterviewList.scss";
 import InterviewListItem from "./InterviewerListItem";
 
-export default function InterviewList(props) {
+InterviewList.propTypes = {
+  value: PropTypes.number,
+  onChange: PropTypes.func.isRequired
+};
 
+export default function InterviewList(props) {
   return (
     <section className="interviewers">
       <h4 className="interviewers__header text--light">Interviewer</h4>
@@ -16,15 +20,13 @@ export default function InterviewList(props) {
               name={value.name}
               avatar={value.avatar}
               selected={value.id === props.value}
-              setInterviewer={(event) => {
-
-                props.onChange(value.id)
+              setInterviewer={event => {
+                props.onChange(value.id);
               }}
             />
-          )
+          );
         })}
       </ul>
     </section>
-  )
-
+  );
 }
