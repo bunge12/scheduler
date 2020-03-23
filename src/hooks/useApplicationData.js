@@ -2,14 +2,17 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function useApplicationData() {
-
   useEffect(() => {
     Promise.all([
       Promise.resolve(axios.get("/api/days")),
       Promise.resolve(axios.get("/api/appointments")),
-      Promise.resolve(axios.get("/api/interviewers")),
-    ]).then((all) => {
-      setState(prev => ({ days: all[0].data, interviewers: all[2].data, appointments: all[1].data }));
+      Promise.resolve(axios.get("/api/interviewers"))
+    ]).then(all => {
+      setState(prev => ({
+        days: all[0].data,
+        interviewers: all[2].data,
+        appointments: all[1].data
+      }));
     });
   }, []);
 
@@ -21,7 +24,6 @@ export default function useApplicationData() {
   });
 
   const bookInterview = (id, interview) => {
-
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -31,30 +33,26 @@ export default function useApplicationData() {
       [id]: appointment
     };
 
-    return axios.put(`/api/appointments/${id}`, appointment)
-      .then(res => {
-
-        state.days.forEach(item => {
-          const arr = item.appointments;
-          const appt = state.appointments[id].id;
-          const found = arr.find(element => element === appt)
-          if (typeof found !== 'undefined') {
-            const x = (item.id) - 1
-            const newSpots = state.days[x].spots - 1
-            const day = {
-              ...state.days[x],
-              spots: newSpots
-            };
-            const days = [...state.days];
-            days[x] = day;
-            setState(prev => ({ ...state, appointments, days }));
-          }
-        })
-      })
-
-  }
-  const cancelInterview = (id) => {
-
+    return axios.put(`/api/appointments/${id}`, appointment).then(res => {
+      state.days.forEach(item => {
+        const arr = item.appointments;
+        const appt = state.appointments[id].id;
+        const found = arr.find(element => element === appt);
+        if (typeof found !== "undefined") {
+          const x = item.id - 1;
+          const newSpots = state.days[x].spots - 1;
+          const day = {
+            ...state.days[x],
+            spots: newSpots
+          };
+          const days = [...state.days];
+          days[x] = day;
+          setState(prev => ({ ...state, appointments, days }));
+        }
+      });
+    });
+  };
+  const cancelInterview = id => {
     const appointment = {
       ...state.appointments[id],
       interview: null
@@ -64,30 +62,27 @@ export default function useApplicationData() {
       [id]: appointment
     };
 
-    return axios.delete(`/api/appointments/${id}`)
-      .then(res => {
-
-        state.days.forEach(item => {
-          const arr = item.appointments;
-          const appt = state.appointments[id].id;
-          const found = arr.find(element => element === appt)
-          if (typeof found !== 'undefined') {
-            const x = (item.id) - 1
-            const newSpots = state.days[x].spots + 1
-            const day = {
-              ...state.days[x],
-              spots: newSpots
-            };
-            const days = [...state.days];
-            days[x] = day;
-            setState(prev => ({ ...state, appointments, days }));
-          }
-        })
-      })
-  }
-
+    return axios.delete(`/api/appointments/${id}`).then(res => {
+      state.days.forEach(item => {
+        const arr = item.appointments;
+        const appt = state.appointments[id].id;
+        const found = arr.find(element => element === appt);
+        if (typeof found !== "undefined") {
+          const x = item.id - 1;
+          const newSpots = state.days[x].spots + 1;
+          const day = {
+            ...state.days[x],
+            spots: newSpots
+          };
+          const days = [...state.days];
+          days[x] = day;
+          setState(prev => ({ ...state, appointments, days }));
+        }
+      });
+    });
+  };
 
   const setDay = day => setState({ ...state, day });
 
-  return { state, setDay, bookInterview, cancelInterview }
+  return { state, setDay, bookInterview, cancelInterview };
 }
