@@ -1,23 +1,37 @@
 # Interview Scheduler
 
-## Setup
+Scheduler is a full-stack app built with React that allows users to view, book and cancel appointments.
 
-Install dependencies with `npm install`.
+## Final Product
 
-## Running Webpack Development Server
+- Loads data from API via Axios, sets as state
+- Allows a user to book an interview
+- Ability to edit or delete a single entry
+- User can browse appointments by day
+
+## Stack
+
+- Front End: React, SASS
+- Back End: Storybook, Express, Webpack
+- Database: PostgreSQL
+- Tested with Jest and Cypress
+
+## Demo
+
+![Demo](docs/demo.GIF)
+
+## Setup & Use
+
+### Setup and Installation
+
+```sh
+npm install
+```
+
+### Run the server
 
 ```sh
 npm start
 ```
 
-## Running Jest Test Framework
-
-```sh
-npm test
-```
-
-## Running Storybook Visual Testbed
-
-```sh
-npm run storybook
-```
+> This app requires the api server in order to run. Get it from the [Lighthouse Labs](https://github.com/lighthouse-labs/scheduler-api) repo. Follow their instruction to set up the API server.
