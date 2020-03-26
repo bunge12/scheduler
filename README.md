@@ -34,4 +34,4 @@ npm install
 npm start
 ```
 
-> This app requires the api server in order to run. Get it from the [Lighthouse Labs](https://github.com/lighthouse-labs/scheduler-api) repo. Follow their instruction to set up the API server.
+> This app requires an API server in order to run. Get it from the [Lighthouse Labs](https://github.com/lighthouse-labs/scheduler-api) repo. Follow their instruction to set up the API server.
