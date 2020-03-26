@@ -12,7 +12,7 @@ Scheduler is a full-stack app built with React that allows users to view, book a
 ## Stack
 
 - Front End: React, SASS
-- Back End: Storybook, Express, Webpack
+- Back End: Storybook, Webpack
 - Database: PostgreSQL
 - Tested with Jest and Cypress
 
