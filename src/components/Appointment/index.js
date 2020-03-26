@@ -25,7 +25,7 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
 
-  function save(name, interviewer) {
+  const save = (name, interviewer) => {
     transition(SAVING);
 
     const interview = {
@@ -41,7 +41,7 @@ export default function Appointment(props) {
       .catch(() => {
         transition(ERROR_SAVE, true);
       });
-  }
+  };
 
   const edit = () => {
     transition(EDIT);
