@@ -5,7 +5,7 @@ describe("Appointment", () => {
     cy.contains("Monday");
   });
 
-  xit("should book an interview", () => {
+  it("should book an interview", () => {
     cy.get('img[alt="Add"]')
       .first()
       .click();
@@ -22,7 +22,7 @@ describe("Appointment", () => {
     );
   });
 
-  xit("should edit an interview", () => {
+  it("should edit an interview", () => {
     cy.get('img[alt="Edit"]')
       .first()
       .click({ force: true });
@@ -40,16 +40,13 @@ describe("Appointment", () => {
     );
   });
 
-  it("should cancel an interview", () => {});
+  it("should cancel an interview", () => {
+    cy.get('img[alt="Delete"]')
+      .first()
+      .click({ force: true });
+    cy.contains("Confirm").click();
+    cy.contains("Deleting").should("exist");
+    cy.contains("Deleting").should("not.exist");
+    cy.contains(".appointment__card--show", "Archie Cohen").should("not.exist");
+  });
 });
-
-// Visits the root of our web server
-// Clicks the edit button for the existing appointment
-// Changes the name and interviewer
-// Clicks the save button
-// Sees the edit to the appointment
-
-// Visits the root of our web server
-// Clicks the delete button for the existing appointment
-// Clicks the confirm button
-// Sees that the appointment slot is empty
