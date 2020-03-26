@@ -18,7 +18,7 @@ Scheduler is a full-stack app built with React that allows users to view, book a
 
 ## Demo
 
-![Demo](docs/demo.GIF)
+![Demo](https://github.com/bunge12/scheduler/blob/master/docs/demo.gif)
 
 ## Setup & Use
 
