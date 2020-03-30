@@ -80,7 +80,7 @@ export default function Appointment(props) {
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === CONFIRM && (
         <Confirm
-          message="Are you sure you want to do this???"
+          message="Are you sure you want to do this?"
           onCancel={back}
           onConfirm={confirm}
         />
