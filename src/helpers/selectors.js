@@ -1,35 +1,15 @@
 export default function getAppointmentsForDay(state, day) {
-  const result = [];
-  const fnState = { ...state };
-  const found = { ...fnState.days.find(element => element.name === day) };
-
-  if (typeof found.appointments === "undefined") {
-    return [];
-  } else {
-    found.appointments.forEach(appt => {
-      if (fnState.appointments[appt]) {
-        result.push(fnState.appointments[appt]);
-      }
-    });
-  }
-  return result;
+  const found = state.days.find((element) => element.name === day);
+  return found
+    ? found.appointments.map((appt) => state.appointments[appt])
+    : [];
 }
 
 export const getInterviewersForDay = (state, day) => {
-  const result = [];
-  const fnState = { ...state };
-  const found = { ...fnState.days.find(element => element.name === day) };
-
-  if (typeof found.interviewers === "undefined") {
-    return [];
-  } else {
-    found.interviewers.forEach(person => {
-      if (fnState.interviewers[person]) {
-        result.push(fnState.interviewers[person]);
-      }
-    });
-  }
-  return result;
+  const found = state.days.find((element) => element.name === day);
+  return found
+    ? found.interviewers.map((person) => state.interviewers[person])
+    : [];
 };
 
 export const getInterview = (state, interview) => {
@@ -40,9 +20,9 @@ export const getInterview = (state, interview) => {
       interviewer: {
         id: interview.interviewer,
         name: path.name,
-        avatar: path.avatar
+        avatar: path.avatar,
       },
-      student: interview.student
+      student: interview.student,
     };
   } else return null;
 };

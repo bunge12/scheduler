@@ -36,11 +36,12 @@ export default function useApplicationData() {
 
     return axios.put(`/api/appointments/${id}`, appointment).then((res) => {
       state.days.forEach((item) => {
-        const arr = item.appointments;
-        const appt = state.appointments[id].id;
-        const found = arr.find((element) => element === appt);
+        const appointmentsArray = item.appointments;
+        const appointmentId = state.appointments[id].id;
+        const found = appointmentsArray.find(
+          (element) => element === appointmentId
+        );
         if (typeof found !== "undefined") {
-          // console.log();
           const x = item.id - 1;
           const newSpots = !state.appointments[id].interview
             ? state.days[x].spots - 1
@@ -68,9 +69,11 @@ export default function useApplicationData() {
 
     return axios.delete(`/api/appointments/${id}`).then((res) => {
       state.days.forEach((item) => {
-        const arr = item.appointments;
-        const appt = state.appointments[id].id;
-        const found = arr.find((element) => element === appt);
+        const appointmentsArray = item.appointments;
+        const appointmentId = state.appointments[id].id;
+        const found = appointmentsArray.find(
+          (element) => element === appointmentId
+        );
         if (typeof found !== "undefined") {
           const x = item.id - 1;
           const newSpots = state.days[x].spots + 1;
